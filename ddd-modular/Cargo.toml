@@ -1,0 +1,21 @@
+# 模块化 DDD workspace：一限界上下文一 crate，crate 之间禁止互相依赖。
+# 跨上下文只传 shared-kernel 里的 ID；组合只发生在 app/ 的用例编排。
+# 对照：concept/ 是四台概念机 + syncs；本栏是四个 BC + 应用服务。
+[workspace]
+resolver = "2"
+members = [
+    "shared-kernel",
+    "identity",
+    "availability",
+    "booking",
+    "reputation",
+    "app",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+version = "0.1.0"
+
+[workspace.dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }

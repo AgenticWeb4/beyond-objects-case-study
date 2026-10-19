@@ -1,0 +1,16 @@
+# 组合根 + CLI。这里是唯一 new 出四个 SQLite adapter、并编排四个 BC 的地方。
+[package]
+name = "restaurant-ddd-modular"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "restaurant-ddd-modular"
+path = "src/main.rs"
+
+[dependencies]
+restaurant-ddd-kernel = { path = "../shared-kernel" }
+restaurant-ddd-identity = { path = "../identity" }
+restaurant-ddd-availability = { path = "../availability" }
+restaurant-ddd-booking = { path = "../booking" }
+restaurant-ddd-reputation = { path = "../reputation" }

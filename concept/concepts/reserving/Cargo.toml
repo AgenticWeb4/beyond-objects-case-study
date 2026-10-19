@@ -1,0 +1,9 @@
+# 承诺概念。禁止依赖 availability / authenticating / karma。
+[package]
+name = "restaurant-reserving"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-shared-kernel = { path = "../../shared-kernel" }
+rusqlite.workspace = true

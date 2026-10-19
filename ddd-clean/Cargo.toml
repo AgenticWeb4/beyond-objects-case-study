@@ -1,0 +1,13 @@
+# 单 crate 展示 DDD + Clean：按 User / Restaurant / Reservation 切领域，
+# 再按 domain → application → infrastructure 分层。对比看 concept/ 的切法。
+[package]
+name = "restaurant-ddd"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "restaurant-ddd"
+path = "src/main.rs"
+
+[dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }

@@ -1,0 +1,9 @@
+# 可订预测概念。禁止依赖 reserving。没有 reserved 列。
+[package]
+name = "restaurant-availability"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-shared-kernel = { path = "../../shared-kernel" }
+rusqlite.workspace = true

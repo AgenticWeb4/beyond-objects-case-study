@@ -1,0 +1,6 @@
+[package]
+name = "restaurant-oop-shared"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]

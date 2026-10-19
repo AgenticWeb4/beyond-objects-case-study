@@ -1,0 +1,8 @@
+[package]
+name = "restaurant-ddd-identity"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-ddd-kernel = { path = "../shared-kernel" }
+rusqlite.workspace = true

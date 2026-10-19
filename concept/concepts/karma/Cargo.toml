@@ -1,0 +1,9 @@
+# 声誉概念。不知道预约是什么。
+[package]
+name = "restaurant-karma"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-shared-kernel = { path = "../../shared-kernel" }
+rusqlite.workspace = true

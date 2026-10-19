@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "餐厅预约：三种实现怎么切开",
+    "locale": "zh-CN",
+    "quality_profile": "showcase",
+    "views": [
+      {
+        "id": "concept-cut",
+        "label": "概念设计",
+        "focus": ["guest", "conceptSyncs", "conceptReserving", "conceptAvailability"],
+        "note": "syncs 只问动作完成。Reserving 与 Availability 互不引用。"
+      },
+      {
+        "id": "ddd-clean-cut",
+        "label": "朴素 DDD",
+        "focus": ["guest", "dddService", "dddObjects"],
+        "note": "BookingService 一次改 User、Slot、Reservation。"
+      },
+      {
+        "id": "ddd-modular-cut",
+        "label": "模块化 DDD",
+        "focus": ["guest", "modularOrch", "modularBooking", "modularAvailability"],
+        "note": "编排像 syncs，BookingService 仍同时改三块碎片。"
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "guest",
+      "type": "external",
+      "label": "Alice 订位",
+      "sublabel": "同一时段再订",
+      "tag": "同一出戏",
+      "pos": [48, 220],
+      "size": [140, 60]
+    },
+    {
+      "id": "conceptSyncs",
+      "type": "backend",
+      "label": "syncs",
+      "sublabel": "RestaurantSyncs.reserve",
+      "tag": "concept/",
+      "pos": [320, 56],
+      "size": [168, 60]
+    },
+    {
+      "id": "conceptReserving",
+      "type": "backend",
+      "label": "Reserving",
+      "sublabel": "只写承诺",
+      "pos": [740, 32],
+      "size": [152, 56]
+    },
+    {
+      "id": "conceptAvailability",
+      "type": "database",
+      "label": "Availability",
+      "sublabel": "预测不读承诺",
+      "pos": [740, 108],
+      "size": [152, 56]
+    },
+    {
+      "id": "dddService",
+      "type": "backend",
+      "label": "BookingService",
+      "sublabel": "ddd-clean/booking.rs",
+      "tag": "ddd-clean/",
+      "pos": [320, 220],
+      "size": [168, 60]
+    },
+    {
+      "id": "dddObjects",
+      "type": "backend",
+      "label": "User + Restaurant",
+      "sublabel": "Slot.reserved 焊死",
+      "pos": [740, 220],
+      "size": [152, 56]
+    },
+    {
+      "id": "modularOrch",
+      "type": "backend",
+      "label": "orchestration.rs",
+      "sublabel": "用例编排不是 sync",
+      "tag": "ddd-modular/",
+      "pos": [320, 400],
+      "size": [168, 60]
+    },
+    {
+      "id": "modularBooking",
+      "type": "backend",
+      "label": "BookingService",
+      "sublabel": "Guest + Occupancy",
+      "pos": [740, 376],
+      "size": [152, 56]
+    },
+    {
+      "id": "modularAvailability",
+      "type": "database",
+      "label": "Availability",
+      "sublabel": "listed 不管占用",
+      "pos": [740, 452],
+      "size": [152, 56]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "概念设计",
+      "wraps": ["conceptSyncs", "conceptReserving", "conceptAvailability"]
+    },
+    {
+      "kind": "region",
+      "label": "朴素 DDD",
+      "wraps": ["dddService", "dddObjects"]
+    },
+    {
+      "kind": "region",
+      "label": "模块化 DDD",
+      "wraps": ["modularOrch", "modularBooking", "modularAvailability"]
+    }
+  ],
+  "connections": [
+    {
+      "id": "guest-to-concept",
+      "from": "guest",
+      "to": "conceptSyncs",
+      "fromSide": "top",
+      "toSide": "left",
+      "variant": "emphasis"
+    },
+    {
+      "id": "guest-to-ddd",
+      "from": "guest",
+      "to": "dddService",
+      "fromSide": "right",
+      "toSide": "left"
+    },
+    {
+      "id": "guest-to-modular",
+      "from": "guest",
+      "to": "modularOrch",
+      "fromSide": "bottom",
+      "toSide": "left"
+    },
+    {
+      "id": "concept-then-reserve",
+      "from": "conceptSyncs",
+      "to": "conceptReserving",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "then reserve",
+      "variant": "emphasis"
+    },
+    {
+      "id": "concept-where-avail",
+      "from": "conceptSyncs",
+      "to": "conceptAvailability",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "where 查空位",
+      "variant": "dashed"
+    },
+    {
+      "id": "ddd-mutate-objects",
+      "from": "dddService",
+      "to": "dddObjects",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "一次改三个对象",
+      "labelDy": -36,
+      "variant": "emphasis"
+    },
+    {
+      "id": "modular-mutate-booking",
+      "from": "modularOrch",
+      "to": "modularBooking",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "一次改三块碎片",
+      "variant": "emphasis"
+    },
+    {
+      "id": "modular-read-listed",
+      "from": "modularOrch",
+      "to": "modularAvailability",
+      "fromSide": "right",
+      "toSide": "left",
+      "label": "只读 listed",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "emerald",
+      "title": "概念 vs 另外两栏",
+      "items": ["订完仍能搜到 slot；Bob 得 Conflict，来自 Reserving"]
+    },
+    {
+      "dot": "rose",
+      "title": "朴素 DDD vs 另外两栏",
+      "items": ["Slot.reserved 焊死，搜索变空，Bob 得 NoSlot"]
+    },
+    {
+      "dot": "violet",
+      "title": "模块化 DDD vs 另外两栏",
+      "items": ["也能搜到、得 Conflict，但是 BookingService 改三块碎片"]
+    }
+  ]
+}

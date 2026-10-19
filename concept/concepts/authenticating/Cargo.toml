@@ -1,0 +1,9 @@
+# 认证概念。users 表没有 karma。
+[package]
+name = "restaurant-authenticating"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-shared-kernel = { path = "../../shared-kernel" }
+rusqlite.workspace = true

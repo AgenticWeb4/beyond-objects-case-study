@@ -1,0 +1,6 @@
+[package]
+name = "restaurant-ddd-kernel"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]

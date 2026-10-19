@@ -1,0 +1,7 @@
+# 无业务规则：身份宏 + 日期时间。
+[package]
+name = "restaurant-shared-kernel"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]

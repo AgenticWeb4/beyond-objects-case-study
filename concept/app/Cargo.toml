@@ -1,0 +1,17 @@
+# 组合根 + CLI。这里是唯一 new 出四个 SQLite adapter 的地方。
+[package]
+name = "restaurant-concept"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "restaurant-concept"
+path = "src/main.rs"
+
+[dependencies]
+restaurant-shared-kernel = { path = "../shared-kernel" }
+restaurant-availability = { path = "../concepts/availability" }
+restaurant-reserving = { path = "../concepts/reserving" }
+restaurant-authenticating = { path = "../concepts/authenticating" }
+restaurant-karma = { path = "../concepts/karma" }
+restaurant-syncs = { path = "../syncs" }

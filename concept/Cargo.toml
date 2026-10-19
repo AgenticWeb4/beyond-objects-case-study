@@ -1,0 +1,22 @@
+# 概念设计 workspace：一个 concept 一个 crate，crate 之间禁止互相依赖。
+# 组合只发生在 syncs/；app/ 只负责 CLI 与装配 SQLite adapter。
+# 依赖方向：app → syncs → concepts/* ，concepts 互不引用。
+[workspace]
+resolver = "2"
+members = [
+    "shared-kernel",
+    "concepts/reserving",
+    "concepts/availability",
+    "concepts/authenticating",
+    "concepts/karma",
+    "syncs",
+    "app",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+version = "0.1.0"
+
+[workspace.dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }

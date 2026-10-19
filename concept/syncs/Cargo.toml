@@ -1,0 +1,12 @@
+# 组合层：可以依赖所有概念 crate，但不拥有业务状态。
+[package]
+name = "restaurant-syncs"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-shared-kernel = { path = "../shared-kernel" }
+restaurant-availability = { path = "../concepts/availability" }
+restaurant-reserving = { path = "../concepts/reserving" }
+restaurant-authenticating = { path = "../concepts/authenticating" }
+restaurant-karma = { path = "../concepts/karma" }

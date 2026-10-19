@@ -1,0 +1,11 @@
+[package]
+name = "restaurant-oop-reservation"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-oop-shared = { path = "../shared" }
+# 【小白】订单对象要「指着」人和店，所以本包依赖那两个对象包。
+# 概念侧 Reserving 不依赖 Authenticating / Availability。
+restaurant-oop-user = { path = "../user" }
+restaurant-oop-restaurant = { path = "../restaurant" }

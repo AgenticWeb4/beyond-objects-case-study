@@ -1,0 +1,21 @@
+# 只按名词分包：User / Restaurant / Reservation 各一个 crate。
+# crate 互相依赖，单库外键对象图。目录像拆开了，切法仍是面向对象旧模式。
+# 对照：concept/ 概念互不依赖；ddd-modular/ 上下文互不依赖。
+[workspace]
+resolver = "2"
+members = [
+    "shared",
+    "user",
+    "restaurant",
+    "reservation",
+    "booking",
+    "app",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+version = "0.1.0"
+
+[workspace.dependencies]
+rusqlite = { version = "0.32", features = ["bundled"] }

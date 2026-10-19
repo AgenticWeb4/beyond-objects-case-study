@@ -1,0 +1,16 @@
+[package]
+name = "restaurant-oop-packages"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "restaurant-oop-packages"
+path = "src/main.rs"
+
+[dependencies]
+restaurant-oop-shared = { path = "../shared" }
+restaurant-oop-user = { path = "../user" }
+restaurant-oop-restaurant = { path = "../restaurant" }
+restaurant-oop-reservation = { path = "../reservation" }
+restaurant-oop-booking = { path = "../booking" }
+rusqlite.workspace = true

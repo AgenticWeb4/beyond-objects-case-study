@@ -1,0 +1,11 @@
+[package]
+name = "restaurant-oop-booking"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+restaurant-oop-shared = { path = "../shared" }
+# 【小白】BookingService 同时改三个对象，所以必须 import 三个对象包。
+restaurant-oop-user = { path = "../user" }
+restaurant-oop-restaurant = { path = "../restaurant" }
+restaurant-oop-reservation = { path = "../reservation" }
